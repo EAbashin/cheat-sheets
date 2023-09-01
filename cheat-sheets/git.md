@@ -33,12 +33,20 @@
 - `git log` просмотр истории коммитов
   - `--oneline` информация о коммите в одной строке (72 символа)
   - `--all --graph` визуальный просмотр веток
-  - ```
-    [alias]
-      lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
-      lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
-      lg = lg1
-    ```
+
+`~/.gitconfig`
+
+```
+[alias]
+    lg = lg1
+    lg1 = lg1-specific --all
+    lg2 = lg2-specific --all
+    lg3 = lg3-specific --all
+
+    lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+    lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+    lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n'' %C(white)%s%C(reset)%n'' %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+```
 
 ### Добавление в репозиторий
 
@@ -73,3 +81,12 @@ graph LR
     staged+tracked -- git commit --> tracked
     modified -- git add --> staged+tracked
 ```
+
+### Исправления коммитов
+
+- `git commit --amend` исправить ПОСЛЕДНИЙ коммит (HEAD)
+- `--no-edit` не изменять сообщение
+- `-m "Новое сообщение"` изменить сообщение
+- `git restore --staged <file/.>` выполнить unstage файла
+- `git reset --hard <commit bash>` откатить коммит к указанному
+- `git restore <file>` откатить изменения, которые не попали ни в staging, ни в коммит (возвращает файл к состоянию на последнем коммите)
