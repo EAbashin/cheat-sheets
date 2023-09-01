@@ -32,6 +32,13 @@
 - `git status` выводит статус репозитория
 - `git log` просмотр истории коммитов
   - `--oneline` информация о коммите в одной строке (72 символа)
+  - `--all --graph` визуальный просмотр веток
+  - ```
+    [alias]
+      lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+      lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+      lg = lg1
+    ```
 
 ### Добавление в репозиторий
 
@@ -58,3 +65,11 @@
 - `git push -u origin main` - дополнительно связываем ветки
 - `git push` загрузить содержимое из локального репозитория в удалённый (GitHub)
 - `git pull` загрузить содержимое из удалённого репозитория в локальный
+
+```mermaid
+graph LR
+    untracked -- git add --> staged+tracked
+    tracked -- изменения --> modified
+    staged+tracked -- git commit --> tracked
+    modified -- git add --> staged+tracked
+```
